@@ -1,4 +1,5 @@
 ﻿using Mango.Services.ProductAPI.DbContexts;
+using Mango.Services.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mango.Services.ProductAPI.Extensions
@@ -9,5 +10,7 @@ namespace Mango.Services.ProductAPI.Extensions
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
+
+        public static void ConfigureRepository(this IServiceCollection services) => services.AddScoped<IProductRepository, ProductRepository>();    
     }
 }

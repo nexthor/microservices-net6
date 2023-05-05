@@ -1,3 +1,5 @@
+using AutoMapper;
+using Mango.Services.ProductAPI;
 using Mango.Services.ProductAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,11 @@ builder.Services.AddSwaggerGen();
 
 // db context
 builder.Services.ConfigureDbContext(configuration);
+builder.Services.ConfigureRepository();
+
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
