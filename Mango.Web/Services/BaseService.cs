@@ -31,9 +31,9 @@ namespace Mango.Web.Services
                 if (request.Data != null)
                     message.Content = new StringContent(JsonSerializer.Serialize(request.Data), Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = null;
+                HttpResponseMessage response = null!;
 
-                switch (request.ApyType) 
+                switch (request.ApiType) 
                 {
                     case SD.ApiType.POST:
                         message.Method = HttpMethod.Post;
@@ -54,7 +54,7 @@ namespace Mango.Web.Services
                 var apiContent = new MemoryStream(Encoding.UTF8.GetBytes(await response.Content.ReadAsStringAsync()));
                 var apiResponseDto = await JsonSerializer.DeserializeAsync<T>(apiContent, new JsonSerializerOptions());
 
-                return apiResponseDto;
+                return apiResponseDto!;
             } catch (Exception ex)
             {
                 var dto = new ResponseDto
@@ -67,6 +67,11 @@ namespace Mango.Web.Services
                         Convert.ToString(ex.Message)
                     }
                 };
+                var response = JsonSerializer.Serialize(dto, new JsonSerializerOptions());
+                var responseDto = JsonSerializer.Deserialize<T>(response);
+
+                return responseDto!;
+
             }
         }
 
