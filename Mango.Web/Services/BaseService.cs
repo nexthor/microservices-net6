@@ -51,8 +51,11 @@ namespace Mango.Web.Services
 
                 response = await client.SendAsync(message);
 
-                var apiContent = new MemoryStream(Encoding.UTF8.GetBytes(await response.Content.ReadAsStringAsync()));
-                var apiResponseDto = await JsonSerializer.DeserializeAsync<T>(apiContent, new JsonSerializerOptions());
+                var apiContent = await response.Content.ReadAsStringAsync();
+                var apiResponseDto = JsonSerializer.Deserialize<T>(apiContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                });
 
                 return apiResponseDto!;
             } catch (Exception ex)

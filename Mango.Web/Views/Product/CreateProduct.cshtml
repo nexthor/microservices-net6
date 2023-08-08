@@ -1,0 +1,62 @@
+﻿@model ProductDto
+<form asp-action="CreateProduct" class="row">
+    <div class="col-12 border p-4">
+        <h1 class="col-12 text-primary mb-3">
+            Create Product
+        </h1>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container">
+            <div class="row mb-3">
+                <label class="col-2" asp-for="Name"></label>
+                <div class="col-10">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2" asp-for="CategoryName"></label>
+                <div class="col-10">
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2" asp-for="Price"></label>
+                <div class="col-10">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2" asp-for="Description"></label>
+                <div class="col-10">
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-2" asp-for="ImageUrl"></label>
+                <div class="col-10">
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-5 offset-2">
+                    <a asp-action="Index" class="btn btn-primary form-control">Back to List</a>
+                </div>
+                <div class="col-5">
+                    <button type="submit" class="btn btn-success form-control">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
