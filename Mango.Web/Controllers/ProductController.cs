@@ -37,7 +37,7 @@ namespace Mango.Web.Controllers
                 var response = await _productService.CreateProductAsync<ResponseDto>(form);
 
                 if (response != null && response.IsSuccess)
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
             }
 
             return View(form);
@@ -67,7 +67,37 @@ namespace Mango.Web.Controllers
                 var response = await _productService.UpdateProductAsync<ResponseDto>(form);
 
                 if (response != null && response.IsSuccess)
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
+            }
+
+            return View(form);
+        }
+
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var response = await _productService.GetProductByIdAsync<ResponseDto>(id);
+            if (response != null && response.IsSuccess)
+            {
+                var model = JsonSerializer.Deserialize<ProductDto>(Convert.ToString(response.Result)!, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                });
+
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(ProductDto form)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _productService.DeleteProductAsync<ResponseDto>(form.ProductId);
+
+                if (response != null && response.IsSuccess)
+                    return RedirectToAction(nameof(Index));
             }
 
             return View(form);
