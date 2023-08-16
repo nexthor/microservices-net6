@@ -396,4 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/Mango.Services.ProductAPI/appsettings.Local.json
+
+# Ignoring local app settings
+appsettings.Local.json
+launchsettings.json
