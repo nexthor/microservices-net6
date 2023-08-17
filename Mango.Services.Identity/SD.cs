@@ -3,6 +3,9 @@ using Duende.IdentityServer.Models;
 
 namespace Mango.Services.Identity
 {
+    /// <summary>
+    /// Static Details Class
+    /// </summary>
     public static class SD
     {
         public const string Admin = nameof(Admin);
